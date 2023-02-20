@@ -51,9 +51,15 @@ var defaultScraper *Scraper
 
 // New creates a Scraper object
 func New() *Scraper {
+	return NewWithClient(
+		&http.Client{Timeout: DefaultClientTimeout},
+	)
+}
+
+func NewWithClient(client *http.Client) *Scraper {
 	return &Scraper{
 		bearerToken: bearerToken,
-		client:      &http.Client{Timeout: DefaultClientTimeout},
+		client:      client,
 	}
 }
 
